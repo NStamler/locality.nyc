@@ -17,6 +17,9 @@ $(document).ready((function() {
     isMobile = true;
   }
 
+  isCordova = typeof Connection !== "undefined" && navigator.connection;
+  alert(isCordova);
+
   // console.log("ready");
 
   initMap();
@@ -59,8 +62,6 @@ function addMainListeners() {
     }
   });
 
-  isCordova = typeof Connection !== "undefined" && navigator.connection;
-
   $("#offline_notice").on("click", function() {
     alert("You are offline! locality.nyc uses Google Maps which may be cached on your device, however search functionality will not work while you are offline.");
   });
@@ -84,6 +85,7 @@ function checkNetwork() {
 
   // alert('Connection type: ' + states[networkState]);
 
+  alert(isCordova);
   if(isCordova) {
     alert([Connection.UNKNOWN, Connection.CELL, Connection.NONE].indexOf(navigator.connection.type) === -1);
     updateConnectivityState([Connection.UNKNOWN, Connection.CELL, Connection.NONE].indexOf(navigator.connection.type) === -1);
