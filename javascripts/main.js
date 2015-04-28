@@ -70,21 +70,22 @@ function addMainListeners() {
 
 function checkNetwork() {
   // console.log("checkNetwork");
-  var networkState = navigator.connection.type;
+  // var networkState = navigator.connection.type;
 
-  var states = {};
-  states[Connection.UNKNOWN]  = 'Unknown connection';
-  states[Connection.ETHERNET] = 'Ethernet connection';
-  states[Connection.WIFI]     = 'WiFi connection';
-  states[Connection.CELL_2G]  = 'Cell 2G connection';
-  states[Connection.CELL_3G]  = 'Cell 3G connection';
-  states[Connection.CELL_4G]  = 'Cell 4G connection';
-  states[Connection.CELL]     = 'Cell generic connection';
-  states[Connection.NONE]     = 'No network connection';
+  // var states = {};
+  // states[Connection.UNKNOWN]  = 'Unknown connection';
+  // states[Connection.ETHERNET] = 'Ethernet connection';
+  // states[Connection.WIFI]     = 'WiFi connection';
+  // states[Connection.CELL_2G]  = 'Cell 2G connection';
+  // states[Connection.CELL_3G]  = 'Cell 3G connection';
+  // states[Connection.CELL_4G]  = 'Cell 4G connection';
+  // states[Connection.CELL]     = 'Cell generic connection';
+  // states[Connection.NONE]     = 'No network connection';
 
-  alert('Connection type: ' + states[networkState]);
+  // alert('Connection type: ' + states[networkState]);
 
   if(isCordova) {
+    alert([Connection.UNKNOWN, Connection.CELL, Connection.NONE].indexOf(navigator.connection.type) === -1);
     updateConnectivityState([Connection.UNKNOWN, Connection.CELL, Connection.NONE].indexOf(navigator.connection.type) === -1);
   } else {
     $.get("connection-test").done(function(data, xhr) {
@@ -99,12 +100,14 @@ function updateConnectivityState(state) {
   // console.log("updateConnectivityState");
   if(state) {
     if(!stableConnection) {
+      alert("coming from unstable");
       stableConnection = true;
       $("#offline_notice").removeClass("active");
     }
     setTimeout(checkNetwork, 5000);
   } else {
     if(stableConnection) {
+      alert("coming from stable");
       stableConnection = false;
       reconnectInterval = 0;
       $("#offline_notice").addClass("active");
