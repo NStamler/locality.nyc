@@ -81,6 +81,8 @@ function checkNetwork() {
 
   // alert('Connection type: ' + states[networkState]);
 
+  alert(typeof Connection);
+  alert(!!navigator.connection);
   if(typeof Connection !== "undefined" && navigator.connection) {
     alert([Connection.UNKNOWN, Connection.CELL, Connection.NONE].indexOf(navigator.connection.type) === -1);
     updateConnectivityState([Connection.UNKNOWN, Connection.CELL, Connection.NONE].indexOf(navigator.connection.type) === -1);
