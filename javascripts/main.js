@@ -9,16 +9,12 @@ ga('send', 'pageview');
 var openedInfo = new google.maps.InfoWindow(),
     polyIsVisible = true,
     isMobile = false,
-    isCordova = false,
     stableConnection = true, reconnectTimeout, reconnectInterval = 3;
 
 $(document).ready((function() {
   if(!$("footer").is(":visible")) {
     isMobile = true;
   }
-
-  isCordova = typeof Connection !== "undefined" && navigator.connection;
-  alert(isCordova);
 
   // console.log("ready");
 
@@ -85,8 +81,7 @@ function checkNetwork() {
 
   // alert('Connection type: ' + states[networkState]);
 
-  alert(isCordova);
-  if(isCordova) {
+  if(typeof Connection !== "undefined" && navigator.connection) {
     alert([Connection.UNKNOWN, Connection.CELL, Connection.NONE].indexOf(navigator.connection.type) === -1);
     updateConnectivityState([Connection.UNKNOWN, Connection.CELL, Connection.NONE].indexOf(navigator.connection.type) === -1);
   } else {
